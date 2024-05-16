@@ -1,0 +1,28 @@
+version: '3.9'
+
+volumes:
+  db-data: {}
+
+services:
+  postgres:
+    image: postgres:12
+    env_file:
+      - .envs
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    env_file:
+      - .envs
+    volumes:
+      - .:/documents
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
