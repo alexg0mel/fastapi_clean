@@ -1,0 +1,11 @@
+[flake8]
+exclude =
+    .github
+    .pytest_cache
+    compose
+    migrations
+    terraform
+    venv
+    .venv
+    tests
+max-line-length = 120
