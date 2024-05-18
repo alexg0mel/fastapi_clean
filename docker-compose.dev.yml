@@ -20,8 +20,6 @@ services:
       dockerfile: ./docker/app/Dockerfile
     env_file:
       - .envs
-    volumes:
-      - .:/documents
     ports:
       - "8000:8000"
     depends_on:

@@ -1,8 +1,8 @@
-up: down
-	docker compose -f docker-compose.dev.yml up --build
+up: down build
+	docker compose -f docker-compose.dev.yml up
 
 build:
-	docker compose -f docker-compose.dev.yml build
+	docker compose -f docker-compose.dev.yml build --build-arg SERVICE="documents"
 
 down:
 	docker compose -f docker-compose.dev.yml down
