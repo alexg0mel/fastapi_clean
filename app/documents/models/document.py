@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from datetime import date
 from uuid import UUID
 
+from .enums import Stage, TypeUser, DocumentStatus, AlphaGroup
+
 
 @dataclass
 class Document:
@@ -16,20 +18,19 @@ class Document:
 
     uuid: UUID
     base_uuid: UUID
-    stage: str  # todo
+    stage: Stage
     location_key: str
     number: str
     date: date
     session_id: int
     user_id: int
-    type_user: str  # buyer, seller todo
+    type_user: TypeUser
     currency: str
     user_currency: str
     is_partner: bool = False
-    status: str = 'forming'  # draft, active, forming (default) todo
-    alpha_group: str = '-'  # α, β, γ, etc  - (default) todo
+    status: DocumentStatus = DocumentStatus.Forming
+    alpha_group: AlphaGroup = AlphaGroup.Empty
     next_uuid: UUID | None = None
 
     # todo подумать как в документе хранить (или нет? - потому что для каждой стадии будет свой тип айтемов) айтемы
-    # todo расписать тодошки выше - енумы
     # todo ООП привязать к стадии тип айтема
