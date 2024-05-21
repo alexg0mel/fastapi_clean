@@ -32,5 +32,4 @@ class Document:
     alpha_group: AlphaGroup = AlphaGroup.Empty
     next_uuid: UUID | None = None
 
-    # todo подумать как в документе хранить (или нет? - потому что для каждой стадии будет свой тип айтемов) айтемы
     # todo ООП привязать к стадии тип айтема
