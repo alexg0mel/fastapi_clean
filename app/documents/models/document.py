@@ -1,14 +1,12 @@
-from dataclasses import dataclass
 from datetime import date
 from uuid import UUID
 
-from lib.models.base import BaseModel
+from lib.models.base import Base
 
 from .enums import Stage, TypeUser, DocumentStatus, AlphaGroup
 
 
-@dataclass
-class Document(BaseModel):
+class Document(Base):
     """
     Documents have stages of change. One stage follows from the previous one.
     The life cycle by stages of documents is as follows: tradezone order (TO),

@@ -1,15 +1,13 @@
 from typing import Type
-from dataclasses import dataclass
 from datetime import date
 from uuid import UUID
 
-from lib.models.base import BaseModel
+from lib.models.base import Base
 
 from .enums import Stage, TypeUser
 
 
-@dataclass
-class Item(BaseModel):
+class Item(Base):
     """
     Items belong to a specific document.
     Depending on the type of user and the stage of the document,
