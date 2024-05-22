@@ -4,6 +4,7 @@ from uuid import UUID
 from lib.models.base import Base
 
 from .enums import Stage, TypeUser, DocumentStatus, AlphaGroup
+from .item import Item
 
 
 class Document(Base):
@@ -31,5 +32,7 @@ class Document(Base):
     status: DocumentStatus = DocumentStatus.Forming
     alpha_group: AlphaGroup = AlphaGroup.Empty
     next_uuid: UUID | None = None
-
-    # todo ООП привязать к стадии тип айтема
+    items: list[Item] = []
+    sum: int = 0
+    user_sum: int = 0
+    qty: int = 0

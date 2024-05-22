@@ -28,5 +28,5 @@ class TestDocument:
         assert document.next_uuid is None
 
         document_in_dict = document.to_dict()
-        assert len(document_in_dict) == 15
+        assert len(document_in_dict) == 19
         assert document_in_dict['uuid'] == uuid
