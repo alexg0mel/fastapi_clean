@@ -9,5 +9,5 @@ class Base(BaseModel):
         return self.model_dump(**kwargs)
 
     @classmethod
-    def from_kwargs(cls: type[Model], **kwargs) -> Model:
-        return cls(**kwargs)
+    def from_dict(cls: type[Model], data: dict) -> Model:
+        return cls.model_validate(data, from_attributes=True)
