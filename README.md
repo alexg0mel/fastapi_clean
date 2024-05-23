@@ -21,18 +21,18 @@ By the way, it just so happens that the development is being done as an Domain-D
 
 ### Envs
 
-| Name                | Default value | Description                    |
-|---------------------|---------------|--------------------------------|
-| DOCUMENTS_APP_PORT  | 8000          | Port of documents service      |
-| PROJECT_NAME        | service       |                                |
-| GLOBAL_SERVICE_PATH | ""            | Path for api gateway           |
-| DOCS_URL            | /docs         | Settings for API documentation |
-| REDOC_URL           | /redoc        | Settings for API documentation |
-| OPENAPI_URL         | /openapi.json | Settings for API documentation |
-| DEBUG               | false         | Enable for local development   |
-| LOGGING_LEVEL       | INFO          | Logging level                  |
-| ACCESS_LOG          | false         | Fastapi access logs            |
-| SERVICE_TOKEN       |               | Service token                  |
+| Name                  | Default value | Description                    |
+|-----------------------|---------------|--------------------------------|
+| *_APP_PORT            | 8000          | Port of documents service      |
+| *_PROJECT_NAME        | service       |                                |
+| *_GLOBAL_SERVICE_PATH | ""            | Path for api gateway           |
+| *_DOCS_URL            | /docs         | Settings for API documentation |
+| *_REDOC_URL           | /redoc        | Settings for API documentation |
+| *_OPENAPI_URL         | /openapi.json | Settings for API documentation |
+| DEBUG                 | false         | Enable for local development   |
+| LOGGING_LEVEL         | INFO          | Logging level                  |
+| ACCESS_LOG            | false         | Fastapi access logs            |
+| SERVICE_TOKEN         |               | Service token                  |
 
 ### Run
 

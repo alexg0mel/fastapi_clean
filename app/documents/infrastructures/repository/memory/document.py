@@ -1,6 +1,6 @@
 from uuid import UUID
-from documents.models import Document
-from documents.services.document import DocumentProvider
+from app.documents.models import Document
+from app.documents.services.document import DocumentProvider
 
 from .base import InMemoryProvider
 

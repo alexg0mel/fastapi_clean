@@ -1,6 +1,6 @@
 from datetime import date
 from uuid import uuid4
-from documents.models import Document, Stage, DocumentStatus, TypeUser
+from app.documents.models import Document, Stage, DocumentStatus, TypeUser
 
 from .document import DocumentRepository
 

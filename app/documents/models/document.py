@@ -1,7 +1,7 @@
 from datetime import date
 from uuid import UUID
 
-from lib.models.base import Base
+from app.lib.models.base import Base
 
 from .enums import Stage, TypeUser, DocumentStatus, AlphaGroup
 from .item import Item
