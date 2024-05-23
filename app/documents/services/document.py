@@ -6,11 +6,15 @@ from app.documents.models.document import Document
 
 class DocumentProvider(ABC):
     @abstractmethod
-    async def get_document(self, uuid: UUID) -> Document:
+    async def get_document(self, uuid: UUID) -> Document | None:
         raise NotImplementedError
 
     @abstractmethod
     async def get_document_stages(self, base_uuid: UUID) -> list[Document]:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def store_document(self, document: Document) -> Document:
         raise NotImplementedError
 
 
