@@ -3,6 +3,7 @@ import uvicorn
 from contextlib import asynccontextmanager
 
 from app.documents.config import settings
+from app.lib.logger import init_es_log
 
 
 @asynccontextmanager
@@ -21,5 +22,6 @@ def init_app() -> FastAPI:
 
 
 if __name__ == "__main__":
+    init_es_log(settings.LOGGING_LEVEL)
     fastapi_app = init_app()
     uvicorn.run(fastapi_app, host="0.0.0.0", port=settings.APP_PORT)
