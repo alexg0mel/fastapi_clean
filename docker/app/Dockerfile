@@ -14,5 +14,7 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 COPY /app/$SERVICE /$SERVICE/app/$SERVICE
 COPY /app/lib /$SERVICE/app/lib
+COPY /migrations/$SERVICE /$SERVICE/migrations
+COPY /app/$SERVICE/config.py /$SERVICE/app/lib/config.py
 
 CMD ["sh", "-c", "python -m $APP"]

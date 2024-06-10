@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 
 from app.documents.config import settings
 from app.lib.logger import init_es_log
+from app.documents.api import router
 
 
 @asynccontextmanager
@@ -18,6 +19,7 @@ def init_app() -> FastAPI:
                   redoc_url=settings.REDOC_URL, openapi_url=settings.OPENAPI_URL,
                   root_path=settings.GLOBAL_SERVICE_PATH,
                   debug=settings.DEBUG, lifespan=lifespan)
+    app.include_router(router)
     return app
 
 

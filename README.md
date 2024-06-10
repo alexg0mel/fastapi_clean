@@ -33,6 +33,11 @@ By the way, it just so happens that the development is being done as an Domain-D
 | LOGGING_LEVEL         | INFO          | Logging level                  |
 | ACCESS_LOG            | false         | Fastapi access logs            |
 | SERVICE_TOKEN         |               | Service token                  |
+| *_POSTGRES_DB         |               | Service database name          |
+| POSTGRES_USER         |               | Database user                  |
+| POSTGRES_PASSWORD     |               | Database password              |
+| POSTGRES_SERVICE      |               | Database host                  |
+| POSTGRES_PORT         | 5432          | Database port                  |
 
 ### Run
 

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from uuid import UUID
 
 from app.lib.models.base import Base
@@ -22,7 +22,7 @@ class Document(Base):
     stage: Stage
     location_key: str
     number: str
-    date: date
+    date: datetime
     session_id: int
     user_id: int
     type_user: TypeUser

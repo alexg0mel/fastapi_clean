@@ -24,7 +24,8 @@ class DocumentService:
 
     async def get_document(self, uuid: UUID) -> Document:
         document = await self.document_provider.get_document(uuid)
-        self.calculate_document(document)
+        if document is not None:
+            self.calculate_document(document)
         return document
 
     async def get_document_stages(self, base_uuid: UUID) -> list[Document]:

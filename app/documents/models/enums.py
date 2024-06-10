@@ -3,7 +3,7 @@ from enum import Enum
 
 class Stage(str, Enum):
     TradezoneOrder = "TO"
-    ProformaInvoice = "PO"
+    ProformaInvoice = "PI"
     Invoice = "IN"
     CanceledDocument = "CD"
 
