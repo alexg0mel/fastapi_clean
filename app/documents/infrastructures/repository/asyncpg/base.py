@@ -6,5 +6,5 @@ from app.documents.infrastructures.clients.connection import pool
 
 
 class AsyncPgProvider:
-    def __init__(self, conn: Connection = Depends(pool())):
+    def __init__(self, conn: Connection = Depends(pool)):
         self.conn = conn

@@ -8,10 +8,7 @@ class ConnectionPool:
     def __init__(self, dsn):
         self.dsn = dsn
 
-    def __call__(self):
-        return self._connection
-
-    async def _connection(self) -> Connection:
+    async def __call__(self) -> Connection:
         if self.__pool is None:
             self.__pool = await create_asyncpg_pool(self.dsn)
         async with self.__pool.acquire() as connection:
