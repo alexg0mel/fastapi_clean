@@ -16,7 +16,7 @@ class Item(Base):
     uuid: UUID
     document_uuid: UUID
     product_id: int
-    product_variant_id: str
+    product_variant_id: int
     product_variant_name: str
     localization: str | None
     chip: str | None
@@ -25,6 +25,7 @@ class Item(Base):
     price: int
     user_price: int
     delivery_date: date
+    # transaction_id: int
 
 
 class ItemSO(Item):
@@ -38,13 +39,13 @@ class ItemPO(Item):
 class ItemSI(Item):
     qty0: int
     user_price0: int
-    accepted: bool
+    accepted: bool = False
 
 
 class ItemPI(Item):
     qty0: int
     user_price0: int
-    accepted: bool
+    accepted: bool = False
 
 
 class ItemSIn(Item):
