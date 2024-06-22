@@ -1,7 +1,8 @@
+from typing import Iterable
 from abc import ABC, abstractmethod
 from uuid import UUID
 
-from app.documents.models.document import Document
+from app.documents.models.document import Document, Item
 
 
 class DocumentProvider(ABC):
@@ -15,6 +16,24 @@ class DocumentProvider(ABC):
 
     @abstractmethod
     async def store_document(self, document: Document) -> Document:
+        raise NotImplementedError
+
+
+class ItemProvider(ABC):
+    @abstractmethod
+    async def get_item(self, uuid: UUID) -> Item | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_document_items(self, document_uuid: UUID) -> list[Item]:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def store_item(self, item: Item) -> Item:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def store_items(self, items: Iterable[Item]):
         raise NotImplementedError
 
 

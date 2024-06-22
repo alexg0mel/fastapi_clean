@@ -1,5 +1,5 @@
 from typing import Type
-from datetime import date
+from datetime import datetime
 from uuid import UUID
 
 from app.lib.models.base import Base
@@ -18,13 +18,13 @@ class Item(Base):
     product_id: int
     product_variant_id: int
     product_variant_name: str
-    localization: str | None
-    chip: str | None
-    quality: str | None
+    localization: str | None = None
+    chip: str | None = None
+    quality: str | None = None
     qty: int
     price: int
     user_price: int
-    delivery_date: date
+    delivery_date: datetime
     # transaction_id: int
 
 
