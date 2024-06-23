@@ -1,12 +1,12 @@
-from datetime import date
-from uuid import uuid4
-from app.documents.models import Document, Stage, DocumentStatus, TypeUser
+from datetime import datetime, date
+from uuid import UUID, uuid4
+from app.documents.models import Document, Item, Stage, DocumentStatus, TypeUser
 
 from .document import DocumentRepository
 
 
 class TestDocumentRepository:
-    async def test(self):
+    async def test_document(self):
         stage1_document = self.get_base_document()
         repository = DocumentRepository()
         assert await repository.get_document(uuid=stage1_document.uuid) is None
@@ -27,6 +27,27 @@ class TestDocumentRepository:
         assert stages_in_repo[0] == stage1_document
         assert stages_in_repo[1] == stage2_document
 
+    async def test_item(self):
+        document_uuid = uuid4()
+        item1 = self.get_base_item(document_uuid)
+        repository = DocumentRepository()
+        assert await repository.get_item(uuid=item1.uuid) is None
+        await repository.store_item(item1)
+        assert await repository.get_item(uuid=item1.uuid) == item1
+        document_items = await repository.get_document_items(document_uuid)
+        assert len(document_items) == 0
+        item2 = self.get_base_item(document_uuid)
+        item3 = self.get_base_item(document_uuid)
+        await repository.store_items((item1, item2, item3))
+        assert await repository.get_item(uuid=item1.uuid) == item1
+        assert await repository.get_item(uuid=item2.uuid) == item2
+        assert await repository.get_item(uuid=item3.uuid) == item3
+        document_items = await repository.get_document_items(document_uuid)
+        assert len(document_items) == 3
+        assert document_items[0] == item1
+        assert document_items[1] == item2
+        assert document_items[2] == item3
+
     @staticmethod
     def get_base_document():
         base_uuid = uuid4()
@@ -45,3 +66,19 @@ class TestDocumentRepository:
             status=DocumentStatus.Active
         )
         return base_document
+
+    @staticmethod
+    def get_base_item(document_uuid: UUID):
+        base_item = Item(
+            uuid=uuid4(),
+            document_uuid=document_uuid,
+            product_id=1,
+            product_variant_id=10,
+            product_variant_name='test variant',
+            localization='EU',
+            qty=5,
+            price=1000,
+            user_price=10000,
+            delivery_date=datetime.now()
+        )
+        return base_item

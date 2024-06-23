@@ -1,8 +1,11 @@
-from typing import Iterable
+from typing import Iterable, Type, TypeVar
 from abc import ABC, abstractmethod
 from uuid import UUID
 
 from app.documents.models.document import Document, Item
+
+
+ItemModelType = TypeVar("ItemModelType", bound=Item)
 
 
 class DocumentProvider(ABC):
@@ -18,14 +21,12 @@ class DocumentProvider(ABC):
     async def store_document(self, document: Document) -> Document:
         raise NotImplementedError
 
-
-class ItemProvider(ABC):
     @abstractmethod
-    async def get_item(self, uuid: UUID) -> Item | None:
+    async def get_item(self, uuid: UUID, type_of_item: Type[ItemModelType]) -> Item | None:
         raise NotImplementedError
 
     @abstractmethod
-    async def get_document_items(self, document_uuid: UUID) -> list[Item]:
+    async def get_document_items(self, document_uuid: UUID, type_of_items: Type[ItemModelType]) -> list[Item]:
         raise NotImplementedError
 
     @abstractmethod
@@ -44,16 +45,17 @@ class DocumentService:
     async def get_document(self, uuid: UUID) -> Document:
         document = await self.document_provider.get_document(uuid)
         if document is not None:
-            self.calculate_document(document)
+            await self.calculate_document(document)
         return document
 
     async def get_document_stages(self, base_uuid: UUID) -> list[Document]:
         documents = await self.document_provider.get_document_stages(base_uuid)
         for document in documents:
-            self.calculate_document(document)
+            await self.calculate_document(document)
         return documents
 
-    def calculate_document(self, document: Document) -> Document:
+    async def calculate_document(self, document: Document) -> Document:
+        await self.attach_items(document)
         sum = 0
         user_sum = 0
         qty = 0
@@ -61,4 +63,11 @@ class DocumentService:
             sum += item.price * item.qty
             user_sum += item.user_price * item.qty
             qty += item.qty
+        document.qty = qty
+        document.sum = sum
+        document.user_sum = user_sum
+
         return document
+
+    async def attach_items(self, document: Document):
+        document.items = await self.document_provider.get_document_items(document.uuid, Item)
