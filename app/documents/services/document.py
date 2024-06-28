@@ -70,4 +70,6 @@ class DocumentService:
         return document
 
     async def attach_items(self, document: Document):
-        document.items = await self.document_provider.get_document_items(document.uuid, Item)
+        items = await self.document_provider.get_document_items(document.uuid, Item)
+        if items:
+            document.items = items

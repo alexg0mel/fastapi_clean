@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     POSTGRES_PORT: int = 5432
 
     POSTGRES_DSN: Union[Optional[PostgresDsn], Optional[str]] = None
+    SQLALCHEMY_DATABASE_URI: Union[Optional[PostgresDsn], Optional[str]] = None
 
     @field_validator("POSTGRES_DSN", mode="before")
     def assemble_db_connection(cls, v: str | None, values: dict[str, Any]) -> str:
@@ -36,6 +37,22 @@ class Settings(BaseSettings):
         return str(
             PostgresDsn.build(
                 scheme="postgresql",
+                username=values.data.get("POSTGRES_USER"),
+                password=values.data.get("POSTGRES_PASSWORD"),
+                host=values.data.get("POSTGRES_SERVICE"),
+                path=values.data.get('POSTGRES_DB') or '',
+                port=values.data.get('POSTGRES_PORT'),
+            )
+        )
+
+    @field_validator("SQLALCHEMY_DATABASE_URI", mode="before")
+    def assemble_sqlalchemy_connection(cls, v: str | None, values: dict[str, Any]) -> str:
+        if isinstance(v, str):
+            return v
+
+        return str(
+            PostgresDsn.build(
+                scheme="postgresql+asyncpg",
                 username=values.data.get("POSTGRES_USER"),
                 password=values.data.get("POSTGRES_PASSWORD"),
                 host=values.data.get("POSTGRES_SERVICE"),
