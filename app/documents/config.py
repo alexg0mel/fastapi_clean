@@ -1,6 +1,6 @@
 from typing import Optional, Any, Union
 from functools import lru_cache
-from pydantic import Field, field_validator, PostgresDsn
+from pydantic import Field, field_validator, PostgresDsn, ValidationInfo
 from pydantic_settings import BaseSettings
 
 
@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: Union[Optional[PostgresDsn], Optional[str]] = None
 
     @field_validator("POSTGRES_DSN", mode="before")
-    def assemble_db_connection(cls, v: str | None, values: dict[str, Any]) -> str:
+    def assemble_db_connection(cls, v: str | None, values: ValidationInfo) -> str:
         if isinstance(v, str):
             return v
 
@@ -46,7 +46,7 @@ class Settings(BaseSettings):
         )
 
     @field_validator("SQLALCHEMY_DATABASE_URI", mode="before")
-    def assemble_sqlalchemy_connection(cls, v: str | None, values: dict[str, Any]) -> str:
+    def assemble_sqlalchemy_connection(cls, v: str | None, values: ValidationInfo) -> str:
         if isinstance(v, str):
             return v
 
