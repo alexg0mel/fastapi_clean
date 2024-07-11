@@ -5,13 +5,14 @@ from contextlib import asynccontextmanager
 from app.documents.config import settings
 from app.lib.logger import init_es_log
 from app.documents.api import router
+from app.documents.infrastructures.clients import close_connections
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_: FastAPI):
     ...
     yield
-    ...
+    await close_connections()
 
 
 def init_app() -> FastAPI:

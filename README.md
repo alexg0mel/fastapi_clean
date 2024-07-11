@@ -2,6 +2,7 @@
 # Fastapi Documents service (clean code version) (monorepo version)
 By the way, it just so happens that the development is being done as an Domain-Driven Design (DDD).
 
+
 ## Global challenges:
  - Minimal cohesion between layers,
  - minimal dependence on framework (fastapi)

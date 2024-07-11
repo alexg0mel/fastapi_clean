@@ -16,5 +16,3 @@ logger.info(migrations)
 
 with backend.lock():
     backend.apply_migrations(backend.to_apply(migrations))
-
-
