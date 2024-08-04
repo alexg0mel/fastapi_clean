@@ -7,28 +7,18 @@ from uuid import UUID
 from app.documents.models import Document, Item
 from app.documents.services.document import DocumentProvider, ItemModelType
 from .base import AsyncPgProvider
+from .get_document import GetDocument
+from .get_document_stages import GetDocumentStages
 
 
 class DocumentRepository(AsyncPgProvider, DocumentProvider):
     async def get_document(self, uuid: UUID) -> Document | None:
-        query = '''
-        select * from document
-        where document.uuid = $1
-        '''
-        row: Record = await self.conn.fetchrow(query, uuid)
-        if row is not None:
-            return Document.from_dict(dict(**row))
-        else:
-            #  todo log and raise error this, w request id
-            print(self.request_id)
+        query = GetDocument()
+        return await query.execute(self.conn, uuid)
 
     async def get_document_stages(self, base_uuid: UUID) -> list[Document]:
-        query = '''
-        select * from document
-        where document.base_uuid = $1
-        '''
-        rows = await self.conn.fetch(query, base_uuid)
-        return [Document.from_dict(dict(**row)) for row in rows]
+        query = GetDocumentStages()
+        return await query.execute(self.conn, base_uuid)
 
     async def store_document(self, document: Document) -> Document:
         query = '''
