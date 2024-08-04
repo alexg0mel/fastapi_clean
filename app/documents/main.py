@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 
 from app.documents.config import settings
 from app.lib.logger import init_es_log
+from app.lib.context import context_header
 from app.documents.api import router
 from app.documents.infrastructures.clients import close_connections
 
@@ -21,6 +22,7 @@ def init_app() -> FastAPI:
                   root_path=settings.GLOBAL_SERVICE_PATH,
                   debug=settings.DEBUG, lifespan=lifespan)
     app.include_router(router)
+    app.middleware('http')(context_header)
     return app
 
 

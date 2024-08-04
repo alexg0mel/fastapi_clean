@@ -18,6 +18,9 @@ class DocumentRepository(AsyncPgProvider, DocumentProvider):
         row: Record = await self.conn.fetchrow(query, uuid)
         if row is not None:
             return Document.from_dict(dict(**row))
+        else:
+            #  todo log and raise error this, w request id
+            print(self.request_id)
 
     async def get_document_stages(self, base_uuid: UUID) -> list[Document]:
         query = '''
