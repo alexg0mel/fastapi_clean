@@ -10,6 +10,10 @@ services:
       - .envs
     ports:
       - "5432:5432"
+#    command:
+#      - "postgres"
+#      - "-c"
+#      - "log_min_duration_statement=0"
     volumes:
       - db-data:/var/lib/postgresql/data
 

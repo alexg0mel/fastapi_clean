@@ -43,9 +43,11 @@ class DocumentService:
         self.document_provider = document_provider
 
     async def get_document(self, uuid: UUID) -> Document:
+        await self.document_provider.start_transaction()  # example transaction  todo add to interface...
         document = await self.document_provider.get_document(uuid)
         if document is not None:
             await self.calculate_document(document)
+        await self.document_provider.commit_transaction()  # example transaction
         return document
 
     async def get_document_stages(self, base_uuid: UUID) -> list[Document]:
