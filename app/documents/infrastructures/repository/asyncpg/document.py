@@ -38,6 +38,7 @@ class DocumentRepository(AsyncPgProvider, DocumentProvider):
     async def get_item(self, uuid: UUID, type_of_item: Type[ItemModelType]) -> Item | None:
         query = '''
         select * from item
+        inner join transaction on item.transaction_id = transaction.id
         where item.uuid = $1
         '''
         row: Record = await self.conn.fetchrow(query, uuid)
@@ -47,6 +48,7 @@ class DocumentRepository(AsyncPgProvider, DocumentProvider):
     async def get_document_items(self, document_uuid: UUID, type_of_items: Type[ItemModelType]) -> list[Item]:
         query = '''
         select * from item
+        inner join transaction on item.transaction_id = transaction.id
         where item.document_uuid = $1
         '''
         rows = await self.conn.fetch(query, document_uuid)
