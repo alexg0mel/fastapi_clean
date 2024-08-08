@@ -11,6 +11,6 @@ class QueryStore(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def execute(self, conn: Connection, *args):
+    async def execute(self, conn: Connection, *args, **kwargs):
         raise NotImplementedError
 

@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Type, TypeVar
 from datetime import datetime
 from uuid import UUID
 
@@ -7,7 +7,7 @@ from app.lib.models.base import Base
 from .enums import Stage, TypeUser
 
 
-class Item(Base):
+class BaseItem(Base):
     """
     Items belong to a specific document.
     Depending on the type of user and the stage of the document,
@@ -25,44 +25,43 @@ class Item(Base):
     price: int
     user_price: int
     delivery_date: datetime
-    # transaction_id: int
 
 
-class ItemSO(Item):
+class ItemSO(BaseItem):
     pass
 
 
-class ItemPO(Item):
+class ItemPO(BaseItem):
     pass
 
 
-class ItemSI(Item):
+class ItemSI(BaseItem):
     qty0: int
     user_price0: int
     accepted: bool = False
 
 
-class ItemPI(Item):
+class ItemPI(BaseItem):
     qty0: int
     user_price0: int
     accepted: bool = False
 
 
-class ItemSIn(Item):
+class ItemSIn(BaseItem):
     qty0: int
     user_price0: int
 
 
-class ItemPIn(Item):
+class ItemPIn(BaseItem):
     qty0: int
     user_price0: int
 
 
-class ItemCD(Item):
+class ItemCD(BaseItem):
     pass
 
 
-def select_type_of_item(stage: Stage, type_user: TypeUser) -> Type[Item]:
+def select_type_of_item(stage: Stage, type_user: TypeUser) -> Type[BaseItem]:
     match (stage, type_user):
         case (Stage.TradezoneOrder, TypeUser.Buyer):
             return ItemPO
@@ -80,3 +79,6 @@ def select_type_of_item(stage: Stage, type_user: TypeUser) -> Type[Item]:
             return ItemCD
         case (_, _):
             return Item
+
+
+Item = TypeVar("Item", bound=BaseItem)

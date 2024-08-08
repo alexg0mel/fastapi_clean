@@ -1,11 +1,9 @@
-from typing import Iterable, Type, TypeVar
+from typing import Iterable, Type
 from abc import ABC, abstractmethod
 from uuid import UUID
 
-from app.documents.models.document import Document, Item
-
-
-ItemModelType = TypeVar("ItemModelType", bound=Item)
+from app.documents.models.document import Document
+from app.documents.models.item import Item, select_type_of_item
 
 
 class DocumentProvider(ABC):
@@ -22,11 +20,11 @@ class DocumentProvider(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_item(self, uuid: UUID, type_of_item: Type[ItemModelType]) -> Item | None:
+    async def get_item(self, uuid: UUID, type_of_item: Type[Item]) -> Item | None:
         raise NotImplementedError
 
     @abstractmethod
-    async def get_document_items(self, document_uuid: UUID, type_of_items: Type[ItemModelType]) -> list[Item]:
+    async def get_document_items(self, document_uuid: UUID, type_of_items: Type[Item]) -> list[Item]:
         raise NotImplementedError
 
     @abstractmethod
@@ -70,6 +68,8 @@ class DocumentService:
         return document
 
     async def attach_items(self, document: Document):
-        items = await self.document_provider.get_document_items(document.uuid, Item)
-        if items:
-            document.items = items
+        items = await self.document_provider.get_document_items(document.uuid,
+                                                                select_type_of_item(stage=document.stage,
+                                                                                    type_user=document.type_user))
+
+        document.items = items

@@ -1,5 +1,4 @@
 from asyncpg.connection import Connection
-from asyncpg import Record
 
 from app.lib.infrastructures.repository.query_store import QueryStore
 

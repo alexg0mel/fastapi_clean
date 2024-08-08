@@ -13,10 +13,10 @@ insert into item (uuid, document_uuid, transaction_id, qty, price, user_price, d
 insert into item (uuid, document_uuid, transaction_id, qty, price, user_price, delivery_date) values ('5432d217-991a-44e4-ab39-fcde13165b95', '2a53b5c9-129f-406f-bf7b-08d73ab337e2', 4, 6, 12000, 10000, '2024-06-21 14:34:47.667000 +00:00');
 
 
-insert into item_pi (uuid, qty0, user_price0, accepted) values ('f82a7e8a-6315-4d4a-8423-45b5c4d6cd3c', 3, 10000, true);
-insert into item_pi (uuid, qty0, user_price0, accepted) values ('5432d217-991a-44e4-ab39-fcde13165b95', 4, 12000, true);
+insert into item_pi (item_uuid, qty0, user_price0, accepted) values ('f82a7e8a-6315-4d4a-8423-45b5c4d6cd3c', 3, 10000, true);
+insert into item_pi (item_uuid, qty0, user_price0, accepted) values ('5432d217-991a-44e4-ab39-fcde13165b95', 4, 12000, true);
 
-insert into item_in (uuid, qty0, user_price0) values ('0035d217-991a-44e4-ab39-fcde13165b95', 3, 10000);
+insert into item_in (item_uuid, qty0, user_price0) values ('0035d217-991a-44e4-ab39-fcde13165b95', 3, 10000);
 
 insert into box (uuid, number) values ('07614902-26cc-4213-b190-4467420eac02', '0001');
 insert into box (uuid, number) values ('863f8ff2-6bf1-424a-9a37-d751eeb2bf9b', '0002');

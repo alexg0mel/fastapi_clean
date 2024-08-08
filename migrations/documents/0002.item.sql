@@ -21,19 +21,19 @@ create index idx_item_document_uuid
 
 create table item_pi
 (
-    uuid                 uuid                     not null,
+    item_uuid            uuid                     not null,
     qty0                 int                      not null,
     user_price0          int                      not null,
     accepted             boolean default false    not null,
-    constraint pk_item_pi PRIMARY KEY (uuid),
-    constraint fk_item_pi_item_uuid foreign key (uuid) references item (uuid) ON DELETE CASCADE
+    constraint pk_item_pi PRIMARY KEY (item_uuid),
+    constraint fk_item_pi_item_uuid foreign key (item_uuid) references item (uuid) ON DELETE CASCADE
 );
 
 create table item_in
 (
-    uuid                 uuid                     not null,
+    item_uuid            uuid                     not null,
     qty0                 int                      not null,
     user_price0          int                      not null,
-    constraint pk_item_in PRIMARY KEY (uuid),
-    constraint fk_item_in_item_uuid foreign key (uuid) references item (uuid) ON DELETE CASCADE
+    constraint pk_item_in PRIMARY KEY (item_uuid),
+    constraint fk_item_in_item_uuid foreign key (item_uuid) references item (uuid) ON DELETE CASCADE
 );
