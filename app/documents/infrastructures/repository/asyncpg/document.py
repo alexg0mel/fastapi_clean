@@ -9,9 +9,7 @@ from app.documents.services.document import DocumentProvider
 from .base import AsyncPgProvider
 from .get_document import GetDocument
 from .get_document_stages import GetDocumentStages
-from .get_document_pi_items import GetDocumentPiItems
-from .get_document_in_items import GetDocumentInItems
-from .get_document_items import GetDocumentItems
+from .get_document_items import GetDocumentItems, GetDocumentPiItems, GetDocumentInItems
 
 
 class DocumentRepository(AsyncPgProvider, DocumentProvider):
