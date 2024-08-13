@@ -1,4 +1,4 @@
-from typing import Optional, Any, Union
+from typing import Optional, Union
 from functools import lru_cache
 from pydantic import Field, field_validator, PostgresDsn, ValidationInfo
 from pydantic_settings import BaseSettings

@@ -1,7 +1,7 @@
-from typing import Iterable, Type
+from typing import Iterable
 from uuid import UUID
 from app.documents.models import Document, Item
-from app.documents.services.document import DocumentProvider, ItemModelType
+from app.documents.services.document import DocumentProvider
 
 from .base import InMemoryProvider
 
@@ -24,7 +24,7 @@ class DocumentRepository(InMemoryProvider, DocumentProvider):
     async def get_document_stages(self, base_uuid: UUID) -> list[Document]:
         return self.get_value(base_uuid=base_uuid, default=[])
 
-    async def get_item(self, uuid: UUID, type_of_item: Type[ItemModelType] = Item) -> Item | None:
+    async def get_item(self, uuid: UUID) -> Item | None:
         return self.get_value(uuid=uuid)
 
     async def store_item(self, item: Item) -> Item:
@@ -40,5 +40,5 @@ class DocumentRepository(InMemoryProvider, DocumentProvider):
         if document_uuid is not None:
             self.store(document_uuid=document_uuid, value=items)
 
-    async def get_document_items(self, document_uuid: UUID, type_of_items: Type[ItemModelType] = Item) -> list[Item]:
+    async def get_document_items(self, document_uuid: UUID) -> list[Item]:
         return self.get_value(document_uuid=document_uuid, default=[])

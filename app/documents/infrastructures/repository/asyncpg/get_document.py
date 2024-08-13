@@ -10,8 +10,10 @@ class GetDocument(QueryStore):
     @property
     def query(self) -> str:
         return """
-            select * from document
-            where document.uuid = $1
+            select bd.*, d.uuid, d.stage, d.status, d.next_uuid
+            from document d
+            inner join base_document bd on d.base_uuid = bd.base_uuid
+            where d.uuid = $1
         """
 
     async def execute(self, conn: Connection, *args):

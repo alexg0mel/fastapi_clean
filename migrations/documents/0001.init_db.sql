@@ -26,11 +26,9 @@ create table audit_columns
     updated_by varchar(100)
 );
 
-create table document
+create table base_document
 (
-    uuid           uuid                     not null,
     base_uuid      uuid                     not null,
-    stage          document_stage           not null,
     location_key   varchar(10)              not null,
     number         varchar(8)               not null,
     date           timestamp with time zone not null,
@@ -40,18 +38,28 @@ create table document
     currency       varchar(6)               not null,
     user_currency  varchar(6)               not null,
     is_partner     boolean default false    not null,
-    status         document_status default 'forming' not null,
     alpha_group    alpha_group default '-'  not null,
+
+    constraint pk_base_document PRIMARY KEY (base_uuid)
+);
+
+create table document
+(
+    uuid           uuid                     not null,
+    base_uuid      uuid                     not null,
+    stage          document_stage           not null,
+    status         document_status default 'forming' not null,
     next_uuid      uuid,
 
-    constraint pk_document PRIMARY KEY (uuid)
+    constraint pk_document PRIMARY KEY (uuid),
+    constraint fk_document_base_uuid foreign key (base_uuid) references base_document (base_uuid) ON DELETE CASCADE
 ) inherits (audit_columns);
-
 
 create index idx_document_base_uuid
     on document (base_uuid);
 
-create trigger set_document_timestamp
-    before update on document
+
+create trigger set_base_document_timestamp
+    before update on base_document
     for each row
     execute procedure trigger_set_timestamp();

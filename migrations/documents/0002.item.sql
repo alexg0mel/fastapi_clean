@@ -1,39 +1,30 @@
-create table item
+create table base_item
 (
     uuid                 uuid                not null,
-    document_uuid        uuid                not null,
-    product_id           int                 not null,
-    product_variant_id   int                 not null,
-    product_variant_name varchar(256)        not null,
-    localization         varchar(40)     default null,
-    chip                 varchar(40)     default null,
-    quality              varchar(40)     default null,
-    qty                  int                 not null,
-    price                int                 not null,
-    user_price           int                 not null,
-    delivery_date        timestamp with time zone not null,
-    constraint pk_item PRIMARY KEY (uuid),
+    document_base_uuid   uuid                not null,
+    qty0                 int                 not null,
+    price0               int                 not null,
+    user_price0          int                 not null,
+    delivery_date0       timestamp with time zone not null,
+    constraint pk_base_item PRIMARY KEY (uuid),
+    constraint fk_base_item_document_base_uuid foreign key (document_base_uuid) references base_document (base_uuid) ON DELETE CASCADE
+);
+
+create index idx_base_item_document_base_uuid
+    on base_item (document_base_uuid);
+
+
+create table item
+(
+    base_item_uuid     uuid                not null,
+    document_uuid      uuid                not null,
+    qty                int                 not null,
+    price              int                 not null,
+    user_price         int                 not null,
+    delivery_date      timestamp with time zone not null,
+    constraint pk_item PRIMARY KEY (base_item_uuid, document_uuid),
     constraint fk_item_document_uuid foreign key (document_uuid) references document (uuid) ON DELETE CASCADE
 );
 
 create index idx_item_document_uuid
     on item (document_uuid);
-
-create table item_pi
-(
-    item_uuid            uuid                     not null,
-    qty0                 int                      not null,
-    user_price0          int                      not null,
-    accepted             boolean default false    not null,
-    constraint pk_item_pi PRIMARY KEY (item_uuid),
-    constraint fk_item_pi_item_uuid foreign key (item_uuid) references item (uuid) ON DELETE CASCADE
-);
-
-create table item_in
-(
-    item_uuid            uuid                     not null,
-    qty0                 int                      not null,
-    user_price0          int                      not null,
-    constraint pk_item_in PRIMARY KEY (item_uuid),
-    constraint fk_item_in_item_uuid foreign key (item_uuid) references item (uuid) ON DELETE CASCADE
-);
