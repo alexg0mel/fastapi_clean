@@ -32,9 +32,9 @@ insert into transaction_to_item (transaction_id, base_item_uuid) values (5, '9f8
 insert into box (uuid, number, document_uuid) values ('07614902-26cc-4213-b190-4467420eac02', '0001', '4235d217-991a-44e4-ab39-fcde13165b95');
 insert into box (uuid, number, document_uuid) values ('863f8ff2-6bf1-424a-9a37-d751eeb2bf9b', '0002', '4235d217-991a-44e4-ab39-fcde13165b95');
 
-insert into imei (code, transaction_id, box_uuid) values ('12345678901', 1, '07614902-26cc-4213-b190-4467420eac02');
-insert into imei (code, transaction_id, box_uuid) values ('12345678902', 1, '07614902-26cc-4213-b190-4467420eac02');
-insert into imei (code, transaction_id, box_uuid) values ('12345678903', 1, '07614902-26cc-4213-b190-4467420eac02');
-insert into imei (code, transaction_id, box_uuid) values ('12345678904', 2, '863f8ff2-6bf1-424a-9a37-d751eeb2bf9b');
-insert into imei (code, transaction_id, box_uuid) values ('12345678905', 2, '863f8ff2-6bf1-424a-9a37-d751eeb2bf9b');
-insert into imei (code, transaction_id, box_uuid) values ('12345678906', 2, '863f8ff2-6bf1-424a-9a37-d751eeb2bf9b');
+insert into imei (code, transaction_id, box_uuid, from_document_uuid) values ('12345678901', 1, '07614902-26cc-4213-b190-4467420eac02', '4235d217-991a-44e4-ab39-fcde13165b95');
+insert into imei (code, transaction_id, box_uuid, from_document_uuid) values ('12345678902', 1, '07614902-26cc-4213-b190-4467420eac02', '4235d217-991a-44e4-ab39-fcde13165b95');
+insert into imei (code, transaction_id, box_uuid, from_document_uuid) values ('12345678903', 1, '07614902-26cc-4213-b190-4467420eac02', '4235d217-991a-44e4-ab39-fcde13165b95');
+insert into imei (code, transaction_id, box_uuid, from_document_uuid) values ('12345678904', 2, '863f8ff2-6bf1-424a-9a37-d751eeb2bf9b', '4235d217-991a-44e4-ab39-fcde13165b95');
+insert into imei (code, transaction_id, box_uuid, from_document_uuid) values ('12345678905', 2, '863f8ff2-6bf1-424a-9a37-d751eeb2bf9b', '4235d217-991a-44e4-ab39-fcde13165b95');
+insert into imei (code, transaction_id, box_uuid, from_document_uuid) values ('12345678906', 2, '863f8ff2-6bf1-424a-9a37-d751eeb2bf9b', '4235d217-991a-44e4-ab39-fcde13165b95');

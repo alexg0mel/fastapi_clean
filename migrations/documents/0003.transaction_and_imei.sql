@@ -35,10 +35,13 @@ create table imei
     code                 varchar(21)         not null,
     transaction_id       int                 not null,
     box_uuid             uuid                not null,
+    from_document_uuid   uuid                not null,
     constraint pk_imei primary key (code, transaction_id),
     constraint fk_imei_box_uuid foreign key (box_uuid) references box (uuid) ON DELETE CASCADE
 );
 
+create index idx_imei_from_document_uuid
+    on imei (from_document_uuid);
 
 create table transaction_to_item
 (
