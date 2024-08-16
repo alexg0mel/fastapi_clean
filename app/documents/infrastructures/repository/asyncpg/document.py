@@ -6,20 +6,22 @@ from fastapi import Depends
 from uuid import UUID
 from app.documents.models import Document, Item
 from app.documents.services.document import DocumentProvider
+
+from app.documents.infrastructures.repository.asyncpg.query_story.document.get_document import GetDocument
+from app.documents.infrastructures.repository.asyncpg.query_story.document.get_document_stages import GetDocumentStages
+from app.documents.infrastructures.repository.asyncpg.query_story.document.get_document_items import GetDocumentItems
+
 from .base import AsyncPgProvider
-from .get_document import GetDocument
-from .get_document_stages import GetDocumentStages
-from .get_document_items import GetDocumentItems
 
 
 class DocumentRepository(AsyncPgProvider, DocumentProvider):
     async def get_document(self, uuid: UUID) -> Document | None:
-        query = GetDocument()
-        return await query.execute(self.conn, uuid)
+        query = GetDocument(document_uuid=uuid)
+        return await query.execute(self.conn)
 
     async def get_document_stages(self, base_uuid: UUID) -> list[Document]:
-        query = GetDocumentStages()
-        return await query.execute(self.conn, base_uuid)
+        query = GetDocumentStages(base_uuid=base_uuid)
+        return await query.execute(self.conn)
 
     async def store_document(self, document: Document) -> Document:
         query = '''
@@ -47,8 +49,8 @@ class DocumentRepository(AsyncPgProvider, DocumentProvider):
             return Item.from_dict(dict(**row))
 
     async def get_document_items(self, document_uuid: UUID) -> list[Item]:
-        query = GetDocumentItems()
-        return await query.execute(self.conn, document_uuid)
+        query = GetDocumentItems(document_uuid=document_uuid)
+        return await query.execute(self.conn)
 
     async def store_item(self, item: Item) -> Item:
         return Item

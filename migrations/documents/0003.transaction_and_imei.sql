@@ -1,17 +1,19 @@
 create table transaction
 (
-    id                   int                 not null,
-    session_id           int                 not null,
-    product_id           int                 not null,
-    product_variant_id   int                 not null,
-    product_variant_name varchar(256)        not null,
-    localization         varchar(40)     default null,
-    chip                 varchar(40)     default null,
-    quality              varchar(40)     default null,
-    supplier_id          int                 not null,
-    customer_id          int                 not null,
-    confirmed_qty        int                 not null,
-    accepted             boolean             not null,
+    id                   int                   not null,
+    session_id           int                   not null,
+    product_id           int                   not null,
+    product_variant_id   int                   not null,
+    product_variant_name varchar(256)          not null,
+    localization         varchar(40)       default null,
+    chip                 varchar(40)       default null,
+    quality              varchar(40)       default null,
+    brand                varchar(64)           not null,
+    category             varchar(64)           not null,
+    supplier_id          int                   not null,
+    customer_id          int                   not null,
+    confirmed_qty        int                   not null,
+    accepted             boolean default false not null,
     constraint pk_transaction primary key (id)
 );
 

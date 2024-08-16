@@ -13,6 +13,8 @@ class Item(Base):
     localization: str | None = None
     chip: str | None = None
     quality: str | None = None
+    brand: str
+    category: str
     qty: int
     price: int
     user_price: int

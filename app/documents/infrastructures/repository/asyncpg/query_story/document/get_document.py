@@ -7,19 +7,15 @@ from app.documents.models import Document
 
 
 class GetDocument(QueryStore):
-    @property
-    def query(self) -> str:
+    def raw_query(self) -> str:
         return """
             select bd.*, d.uuid, d.stage, d.status, d.next_uuid
             from document d
             inner join base_document bd on d.base_uuid = bd.base_uuid
-            where d.uuid = $1
+            where d.uuid = {document_uuid}
         """
 
-    async def execute(self, conn: Connection, *args):
-        """
-        :param args: uuid
-        """
-        row: Record = await conn.fetchrow(self.query, *args)
+    async def execute(self, conn: Connection):
+        row: Record = await conn.fetchrow(self.query, *self.params)
         if row is not None:
             return Document.from_dict(dict(**row))

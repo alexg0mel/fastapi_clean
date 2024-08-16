@@ -76,6 +76,8 @@ class TestDocumentRepository:
             product_variant_id=10,
             product_variant_name='test variant',
             localization='EU',
+            brand='brand',
+            category='category',
             qty=5,
             price=1000,
             user_price=10000,

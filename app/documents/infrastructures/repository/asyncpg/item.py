@@ -12,8 +12,8 @@ from .get_boxes import GetBoxes
 
 class ItemRepository(AsyncPgProvider, ItemProvider):
     async def get_boxes(self, document_uuid: UUID, item_uuid: UUID) -> list[Box]:
-        query = GetBoxes()
-        return await query.execute(self.conn, document_uuid, item_uuid)
+        query = GetBoxes(document_uuid=document_uuid, item_uuid=item_uuid)
+        return await query.execute(self.conn)
 
 
 ItemRepository = Annotated[ItemRepository, Depends()]
