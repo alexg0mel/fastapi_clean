@@ -29,7 +29,7 @@ class Document(Base):
     currency: str
     user_currency: str
     is_partner: bool = False
-    status: DocumentStatus = DocumentStatus.Forming
+    status: DocumentStatus = DocumentStatus.Draft
     alpha_group: AlphaGroup = AlphaGroup.Empty
     next_uuid: UUID | None = None
     items: list[Item] = []

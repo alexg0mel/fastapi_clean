@@ -14,6 +14,7 @@ create table transaction
     customer_id          int                   not null,
     confirmed_qty        int                   not null,
     accepted             boolean default false not null,
+    is_parthner          boolean default false not null,
     constraint pk_transaction primary key (id)
 );
 
@@ -49,5 +50,7 @@ create table transaction_to_item
 (
     transaction_id  int    not null,
     base_item_uuid  uuid   not null,
-    constraint pk_transaction_to_item primary key (transaction_id, base_item_uuid)
+    constraint pk_transaction_to_item primary key (transaction_id, base_item_uuid),
+    constraint fk_transaction_to_item_transaction_id foreign key (transaction_id) references transaction (id) ON DELETE CASCADE,
+    constraint fk_transaction_to_item_base_item_uuid foreign key (base_item_uuid) references base_item (uuid) ON DELETE CASCADE
 );

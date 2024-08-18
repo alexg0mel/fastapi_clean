@@ -15,10 +15,6 @@ class DocumentProvider(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def store_document(self, document: Document) -> Document:
-        raise NotImplementedError
-
-    @abstractmethod
     async def get_item(self, uuid: UUID) -> Item | None:
         raise NotImplementedError
 

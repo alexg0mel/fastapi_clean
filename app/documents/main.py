@@ -1,5 +1,6 @@
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 
 from app.documents.config import settings
@@ -7,6 +8,7 @@ from app.lib.logger import init_es_log
 from app.lib.context import context_header
 from app.documents.api import router
 from app.documents.infrastructures.clients import close_connections
+from app.documents.exceptions import DataDuplicationException
 
 
 @asynccontextmanager
@@ -23,6 +25,11 @@ def init_app() -> FastAPI:
                   debug=settings.DEBUG, lifespan=lifespan)
     app.include_router(router)
     app.middleware('http')(context_header)
+
+    @app.exception_handler(DataDuplicationException)
+    async def no_data_handler(_: Request, exc):
+        return JSONResponse(content={'message': 'Data duplication'}, status_code=400)
+
     return app
 
 

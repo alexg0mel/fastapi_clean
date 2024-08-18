@@ -10,7 +10,7 @@ drop type if exists document_stage;
 create type document_stage as ENUM('TO', 'PI', 'IN', 'CD');
 
 drop type if exists document_status;
-create type  document_status as ENUM('draft', 'active', 'forming');
+create type  document_status as ENUM('draft', 'active');
 
 drop type if exists type_user;
 create type  type_user as ENUM('buyer', 'seller');
@@ -48,7 +48,7 @@ create table document
     uuid           uuid                     not null,
     base_uuid      uuid                     not null,
     stage          document_stage           not null,
-    status         document_status default 'forming' not null,
+    status         document_status default 'draft' not null,
     next_uuid      uuid,
 
     constraint pk_document PRIMARY KEY (uuid),

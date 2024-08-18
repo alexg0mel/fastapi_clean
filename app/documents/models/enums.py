@@ -16,7 +16,6 @@ class TypeUser(str, Enum):
 class DocumentStatus(str, Enum):
     Draft = "draft"
     Active = "active"
-    Forming = "forming"
 
 
 class AlphaGroup(str, Enum):

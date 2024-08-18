@@ -23,7 +23,7 @@ class TestDocument:
         assert document.uuid == uuid
         assert document.stage == 'TO'
         assert document.type_user == 'seller'
-        assert document.status == 'forming'
+        assert document.status == 'draft'
         assert document.alpha_group == '-'
         assert document.next_uuid is None
 

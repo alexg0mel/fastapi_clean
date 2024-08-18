@@ -26,6 +26,5 @@ class QueryStore(ABC):
     def params(self) -> Iterable[Any]:
         return self._params.values()
 
-    @abstractmethod
     async def execute(self, conn: Connection):
-        raise NotImplementedError
+        await conn.execute(self.query, *self.params)

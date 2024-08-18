@@ -23,21 +23,6 @@ class DocumentRepository(AsyncPgProvider, DocumentProvider):
         query = GetDocumentStages(base_uuid=base_uuid)
         return await query.execute(self.conn)
 
-    async def store_document(self, document: Document) -> Document:
-        query = '''
-            insert into document(uuid, base_uuid, stage, location_key, number, date,
-                                 session_id, user_id, type_user, currency, user_currencyy,
-                                 is_partner, status, alpha_group, next_uuid)
-                    values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
-        '''
-        await self.conn.execute(query, document.uuid, document.base_uuid, document.stage,
-                                document.location_key, document.number, document.date, document.session_id,
-                                document.user_id, document.user_id, document.type_user, document.currency,
-                                document.user_currency, document.is_partner, document.status,
-                                document.alpha_group, document.next_uuid)
-
-        return document
-
     async def get_item(self, uuid: UUID) -> Item | None:
         query = '''
         select * from item
