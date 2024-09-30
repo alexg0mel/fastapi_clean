@@ -58,3 +58,5 @@ $ make test
 flake8
 ```
 
+## Update for late summer 2024:
+since this project was a research project for a real business project, and now this business project is evolving, the work in this repository is complete.
